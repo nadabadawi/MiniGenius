@@ -38,9 +38,9 @@ class OpenAIAPIAdapter(OpenAIAPI):
 
     def generate_text(self, prompt):
         if hasattr(self.api, 'generate_text_version1'):
-            return self.api.generate_text(prompt)
+            return self.api.generate_text_version1(prompt)
         elif hasattr(self.api, 'generate_text_version2'):
-            return self.api.generate_text_v2(prompt)
+            return self.api.generate_text_version2(prompt)
 
 
 

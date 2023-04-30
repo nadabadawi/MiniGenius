@@ -26,7 +26,7 @@ class GPTv2:
             prompt=prompt,
             max_tokens=5)
         return response
-class GPTAdapter(OpenAIAPI):
+class GPTAdapter(GPTAPI):
     def __init__(self, api_version):
         if api_version == 1:
             self.api = GPTv1()
@@ -46,7 +46,7 @@ app = flask.Flask(__name__)
 @app.route('/', methods=['POST'])
 def home():
     if request.method == 'POST':
-        api_adapter = OpenAIAPIAdapter(api_version=2)
+        api_adapter = GPTAdapter(api_version=2)
         data = request.get_json()
         prompt = data['prompt']
         prompt = 'I am a student and I\'m trying to study and I hope you can provide me with some explanation for' + str(prompt)

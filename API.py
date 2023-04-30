@@ -7,11 +7,10 @@ import openai
 
 openai.api_key = "YOUR_API_KEY"
 
-class OpenAIAPI:
+class GPTAPI:
     def generate_text(self, prompt):
         pass
-
-class OpenAIAPIv1:
+class GPTv1:
     def generate_text_version1(self, prompt):
         
         response = openai.Completion.create(
@@ -20,29 +19,24 @@ class OpenAIAPIv1:
             max_tokens=5
             )
         return response
-
-class OpenAIAPIv2:
+class GPTv2:
     def generate_text_version2(self, prompt):
         response = openai.Completion.create(
             engine="davinci-2",
             prompt=prompt,
             max_tokens=5)
         return response
-
-class OpenAIAPIAdapter(OpenAIAPI):
+class GPTAdapter(OpenAIAPI):
     def __init__(self, api_version):
         if api_version == 1:
-            self.api = OpenAIAPIv1()
+            self.api = GPTv1()
         elif api_version == 2:
-            self.api = OpenAIAPIv2()
-
+            self.api = GPTv2()
     def generate_text(self, prompt):
         if hasattr(self.api, 'generate_text_version1'):
             return self.api.generate_text_version1(prompt)
         elif hasattr(self.api, 'generate_text_version2'):
             return self.api.generate_text_version2(prompt)
-
-
 
 
 
